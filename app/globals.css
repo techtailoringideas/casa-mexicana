@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   CASA MEXICANA — Brand Design System
+   Colors, typography, and utilities as CSS custom properties
+   ═══════════════════════════════════════════════════════════ */
+
+@theme {
+  --color-pink: #E91E8C;
+  --color-pink-dark: #C2185B;
+  --color-teal: #00BFA5;
+  --color-yellow: #FFD93D;
+  --color-earth-dark: #2D1B0E;
+  --color-cream: #FFF9F0;
+  --color-body: #6B5B50;
+  --color-muted: #8B7B6B;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  --font-playfair: "Playfair Display", serif;
+  --font-dm: "DM Sans", sans-serif;
+  --font-caveat: "Caveat", cursive;
+}
+
+:root {
+  --pink: #E91E8C;
+  --pink-dark: #C2185B;
+  --teal: #00BFA5;
+  --yellow: #FFD93D;
+  --earth-dark: #2D1B0E;
+  --cream: #FFF9F0;
+  --body-color: #6B5B50;
+  --muted: #8B7B6B;
+}
+
+/* ─── Base ─── */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-dm);
+  color: var(--body-color);
+  background-color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar styling ─── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 3px;
+}
+
+/* ─── Category tabs horizontal scroll ─── */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─── Snap scrolling for tabs ─── */
+.snap-x {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+/* ─── Currency styling (Pain of Paying reduction) ─── */
+.currency-symbol {
+  font-size: 0.7em;
+  opacity: 0.6;
+}
+
+/* ─── Selection color ─── */
+::selection {
+  background-color: #E91E8C33;
+  color: var(--earth-dark);
+}
