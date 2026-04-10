@@ -207,8 +207,16 @@ export default function AdminDashboard() {
       {/* Top bar */}
       <div className="bg-earth-dark text-white px-4 sm:px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-baseline gap-2">
-            <span className="font-caveat text-2xl text-pink">Casa</span>
+          <div className="flex items-center gap-2">
+            <img
+              src="/images/logo.webp"
+              alt="Casa Mexicana"
+              className="w-20 h-15 rounded-full object-cover"
+            />
+
+            <span className="font-caveat text-2xl text-pink">
+              Casa Mexicana
+            </span>
             <span className="font-playfair text-sm uppercase tracking-[0.2em] font-bold">
               Kitchen
             </span>
@@ -278,6 +286,10 @@ export default function AdminDashboard() {
               const allServed = group.orders.every(
                 (o) => o.status === "served",
               );
+              const isClosed =
+                group.orders.some(
+                  (o) => o.table_sessions?.status === "closed",
+                ) || closedTables.includes(group.sessionId);
 
               return (
                 <div
@@ -410,15 +422,15 @@ export default function AdminDashboard() {
                   )}
 
                   {/* Close Table button — shows when all orders are served */}
+                  {/* Close Table button — shows when all orders are served */}
                   {allServed && (
                     <div className="px-5 py-3 border-t border-gray-100">
-                      {group.billRequested &&
-                        !closedTables.includes(group.sessionId) && (
-                          <p className="text-xs text-yellow font-medium text-center mb-2">
-                            Bill was requested
-                          </p>
-                        )}
-                      {closedTables.includes(group.sessionId) ? (
+                      {group.billRequested && !isClosed && (
+                        <p className="text-xs text-yellow font-medium text-center mb-2">
+                          Bill was requested
+                        </p>
+                      )}
+                      {isClosed ? (
                         <div className="w-full flex items-center justify-center gap-2 py-3 rounded-full font-semibold text-sm text-white bg-green-500">
                           <CheckCircle size={16} />
                           Table Closed

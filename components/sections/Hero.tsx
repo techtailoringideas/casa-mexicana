@@ -245,6 +245,11 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-6"
         >
+          <img
+            src="/images/LOGO.webp"
+            alt="Casa Mexicana"
+            className="w-40 h-30 sm:w-50 sm:h-40  mx-auto mb-4"
+          />
           <div className="flex items-baseline justify-center gap-2">
             <span className="font-caveat text-5xl sm:text-6xl text-pink">
               Casa

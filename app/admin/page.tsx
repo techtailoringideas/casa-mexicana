@@ -41,13 +41,23 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-earth-dark flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="flex items-baseline justify-center gap-2 mb-2">
+        <div className="text-center mb-8 flex flex-col items-center">
+          {/* 1. The Image on top */}
+          <img
+            src="/images/logo.webp"
+            alt="Casa Mexicana Logo"
+            className="w-32 h-32 rounded-full mx-auto mb-4 object-cover shadow-lg shadow-black/20"
+          />
+
+          {/* 2. Casa Mexicana Text right below the image */}
+          <div className="flex items-baseline justify-center gap-2 mb-1">
             <span className="font-caveat text-4xl text-pink">Casa</span>
             <span className="font-playfair text-lg text-white uppercase tracking-[0.2em] font-bold">
               Mexicana
             </span>
           </div>
+
+          {/* 3. Subtitle */}
           <p className="text-white/50 text-sm">Kitchen Admin Panel</p>
         </div>
 

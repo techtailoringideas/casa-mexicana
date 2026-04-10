@@ -38,13 +38,20 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-baseline gap-1 group">
-            <span className="font-caveat text-2xl text-pink font-semibold group-hover:text-pink-dark transition-colors">
-              Casa
-            </span>
-            <span className="font-playfair text-sm text-white uppercase tracking-[0.2em] font-bold">
-              Mexicana
-            </span>
+          <a href="#" className="flex items-center gap-2 group">
+            <img
+              src="/images/LOGO.webp"
+              alt="Casa Mexicana"
+              className="w-20 h-15 "
+            />
+            <div className="flex items-baseline gap-1">
+              <span className="font-caveat text-2xl text-pink font-semibold group-hover:text-pink-dark transition-colors">
+                Casa
+              </span>
+              <span className="font-playfair text-sm text-white uppercase tracking-[0.2em] font-bold">
+                Mexicana
+              </span>
+            </div>
           </a>
 
           {/* Desktop links */}
