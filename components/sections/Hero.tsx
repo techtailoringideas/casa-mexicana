@@ -246,7 +246,7 @@ export default function Hero() {
           className="mb-6"
         >
           <img
-            src="/images/LOGO.webp"
+            src="/images/logo.webp"
             alt="Casa Mexicana"
             className="w-40 h-30 sm:w-50 sm:h-40  mx-auto mb-4"
           />

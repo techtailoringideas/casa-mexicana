@@ -40,7 +40,7 @@ export default function Navbar() {
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
             <img
-              src="/images/LOGO.webp"
+              src="/images/logo.webp"
               alt="Casa Mexicana"
               className="w-20 h-15 "
             />
