@@ -1,5 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, DM_Sans, Caveat } from "next/font/google";
+import {
+  Playfair_Display,
+  DM_Sans,
+  Caveat,
+  Bebas_Neue,
+  Great_Vibes,
+  Comfortaa,
+} from "next/font/google";
 import { getLocalBusinessSchema } from "@/lib/schema";
 import { siteConfig } from "@/data/site";
 import "./globals.css";
@@ -22,6 +29,18 @@ const caveat = Caveat({
   subsets: ["latin"],
   weight: ["600"],
   variable: "--font-caveat",
+  display: "swap",
+});
+const bebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-bebas",
+  display: "swap",
+});
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-breathing",
   display: "swap",
 });
 
@@ -85,7 +104,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${dmSans.variable} ${caveat.variable}`}
+      className={`${playfair.variable} ${dmSans.variable} ${caveat.variable} ${bebasNeue.variable} ${greatVibes.variable}`}
     >
       <head>
         <script

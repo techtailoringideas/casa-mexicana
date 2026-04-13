@@ -3,14 +3,28 @@ import { MapPin, Phone, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-earth-dark text-white/70">
+    <footer
+      className="text-white/70"
+      style={{
+        background:
+          "linear-gradient(135deg, #0D5C58 0%, #062E2C 50%, #0D5C58 100%)",
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>
             <div className="flex items-baseline gap-1 mb-4">
-              <span className="font-caveat text-3xl text-pink">Casa</span>
-              <span className="font-playfair text-base text-white uppercase tracking-[0.2em] font-bold">
+              <span
+                className="text-3xl text-pink"
+                style={{ fontFamily: "var(--font-breathing)" }}
+              >
+                Casa
+              </span>
+              <span
+                className="text-lg text-white uppercase tracking-[0.15em]"
+                style={{ fontFamily: "var(--font-bebas)" }}
+              >
                 Mexicana
               </span>
             </div>

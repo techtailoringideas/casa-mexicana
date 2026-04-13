@@ -21,13 +21,7 @@ export default function Hero() {
     >
       {/* Background gradient */}
       <div className="absolute inset-0">
-        <div
-          className="w-full h-full"
-          style={{
-            background:
-              "linear-gradient(135deg, #2D1B0E 0%, #5C3A1E 40%, #8B4513 70%, #2D1B0E 100%)",
-          }}
-        />
+        <div className="w-full h-full bg-gradient-to-b from-[#0A3A38] to-[#121212]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/40" />
       </div>
 
@@ -251,10 +245,16 @@ export default function Hero() {
             className="w-40 h-30 sm:w-50 sm:h-40  mx-auto mb-4"
           />
           <div className="flex items-baseline justify-center gap-2">
-            <span className="font-caveat text-5xl sm:text-6xl text-pink">
+            <span
+              className="text-5xl sm:text-6xl text-pink"
+              style={{ fontFamily: "var(--font-breathing)" }}
+            >
               Casa
             </span>
-            <span className="font-playfair text-xl sm:text-2xl text-white uppercase tracking-[0.25em] font-bold">
+            <span
+              className="text-2xl sm:text-3xl text-white uppercase tracking-[0.15em]"
+              style={{ fontFamily: "var(--font-bebas)" }}
+            >
               Mexicana
             </span>
           </div>

@@ -20,11 +20,21 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function Reviews() {
   return (
-    <section id="reviews" className="py-16 sm:py-20 bg-earth-dark">
+    <section
+      id="reviews"
+      className="py-16 sm:py-20"
+      style={{
+        background:
+          "linear-gradient(135deg, #0D5C58 0%, #062E2C 50%, #0D5C58 100%)",
+      }}
+    >
+      {" "}
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <span className="font-caveat text-pink text-xl">What People Say</span>
+            <span className="font-caveat text-yellow text-xl">
+              What People Say
+            </span>
             <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-white mt-1">
               Reviews
             </h2>
@@ -34,15 +44,14 @@ export default function Reviews() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {reviews.map((review, i) => (
             <ScrollReveal key={review.id} delay={i * 0.15}>
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 flex flex-col h-full">
+              <div className="bg-white/5 backdrop-blur-sm border border-teal/20 rounded-2xl p-6 flex flex-col h-full hover:border-teal/40 transition-colors duration-300">
+                {" "}
                 {/* Stars */}
                 <StarRating rating={review.rating} />
-
                 {/* Quote */}
                 <p className="text-white/80 text-sm leading-relaxed mt-4 flex-1 italic">
                   &ldquo;{review.quote}&rdquo;
                 </p>
-
                 {/* Author */}
                 <div className="mt-5 pt-4 border-t border-white/10">
                   <div className="flex items-center justify-between">

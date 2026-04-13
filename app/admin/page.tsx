@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
+import Gallery from "@/components/sections/Gallery";
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [pin, setPin] = useState("");

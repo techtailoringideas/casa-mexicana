@@ -6,6 +6,7 @@ import Reviews from "@/components/sections/Reviews";
 import LocationMap from "@/components/sections/LocationMap";
 import CartDrawer from "@/components/cart/CartDrawer";
 import ReservationModal from "@/components/booking/ReservationModal";
+import Gallery from "@/components/sections/Gallery";
 
 export default function Home() {
   return (
@@ -21,6 +22,8 @@ export default function Home() {
         {/* Section 3: Reviews (3 cards) */}
         <Reviews />
 
+        {/* Section 4: Gallery */}
+        <Gallery />
         {/* Section 4: Location + Map + Hours + Contact */}
         <LocationMap />
       </main>

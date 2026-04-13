@@ -6,31 +6,33 @@
    ═══════════════════════════════════════════════════════════ */
 
 @theme {
-  --color-pink: #E91E8C;
-  --color-pink-dark: #C2185B;
-  --color-teal: #00BFA5;
-  --color-yellow: #FFD93D;
-  --color-earth-dark: #2D1B0E;
-  --color-cream: #FFF9F0;
-  --color-body: #6B5B50;
-  --color-muted: #8B7B6B;
-  --color-white: #FFFFFF;
+  --color-pink: #e91e8c;
+  --color-pink-dark: #c2185b;
+  --color-teal: #00bfa5;
+  --color-yellow: #ffd93d;
+  --color-earth-dark: #2d1b0e;
+  --color-cream: #fff9f0;
+  --color-body: #6b5b50;
+  --color-muted: #8b7b6b;
+  --color-white: #ffffff;
   --color-black: #000000;
 
   --font-playfair: "Playfair Display", serif;
   --font-dm: "DM Sans", sans-serif;
   --font-caveat: "Caveat", cursive;
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-breathing: "Great Vibes", cursive;
 }
 
 :root {
-  --pink: #E91E8C;
-  --pink-dark: #C2185B;
-  --teal: #00BFA5;
-  --yellow: #FFD93D;
-  --earth-dark: #2D1B0E;
-  --cream: #FFF9F0;
-  --body-color: #6B5B50;
-  --muted: #8B7B6B;
+  --pink: #e91e8c;
+  --pink-dark: #c2185b;
+  --teal: #00bfa5;
+  --yellow: #ffd93d;
+  --earth-dark: #2d1b0e;
+  --cream: #fff9f0;
+  --body-color: #6b5b50;
+  --muted: #8b7b6b;
 }
 
 /* ─── Base ─── */
@@ -89,6 +91,6 @@ body {
 
 /* ─── Selection color ─── */
 ::selection {
-  background-color: #E91E8C33;
+  background-color: #e91e8c33;
   color: var(--earth-dark);
 }

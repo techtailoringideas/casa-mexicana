@@ -32,7 +32,7 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-earth-dark/95 backdrop-blur-md shadow-lg py-3"
+            ? "bg-[#0A3A38]/95 backdrop-blur-md shadow-lg py-3"
             : "bg-transparent py-5"
         }`}
       >
@@ -45,10 +45,16 @@ export default function Navbar() {
               className="w-20 h-15 "
             />
             <div className="flex items-baseline gap-1">
-              <span className="font-caveat text-2xl text-pink font-semibold group-hover:text-pink-dark transition-colors">
+              <span
+                className="text-2xl text-pink group-hover:text-pink-dark transition-colors"
+                style={{ fontFamily: "var(--font-breathing)" }}
+              >
                 Casa
               </span>
-              <span className="font-playfair text-sm text-white uppercase tracking-[0.2em] font-bold">
+              <span
+                className="text-base text-white uppercase tracking-[0.15em]"
+                style={{ fontFamily: "var(--font-bebas)" }}
+              >
                 Mexicana
               </span>
             </div>
@@ -129,14 +135,14 @@ export default function Navbar() {
         {drawerOpen && (
           <>
             <motion.div
-              className="fixed inset-0 bg-black/60 z-50 md:hidden"
-              initial={{ opacity: 0 }}
+              className="fixed top-0 right-0 bottom-0 w-72 bg-[#0A3A38] z-50 md:hidden flex flex-col"
+              initial={{ x: "100%" }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setDrawerOpen(false)}
             />
             <motion.div
-              className="fixed top-0 right-0 bottom-0 w-72 bg-earth-dark z-50 md:hidden flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-72 bg-gradient-to-b from-[#0D5C58] via-[#0D5C58] to-[#D97706] z-50 md:hidden flex flex-col"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
