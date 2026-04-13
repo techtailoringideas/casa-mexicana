@@ -47,12 +47,20 @@ export default function Gallery() {
   }
 
   return (
-    <section id="gallery" className="py-16 sm:py-20 bg-cream">
+    <section
+      id="gallery"
+      className="py-16 sm:py-20 relative"
+      style={{
+        background:
+          "linear-gradient(135deg, #1C1C1C 0%, #0F0F0F 50%, #1C1C1C 100%)",
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <ScrollReveal>
           <div className="text-center mb-10">
             <span className="font-caveat text-pink text-xl">Our Moments</span>
-            <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-earth-dark mt-1">
+            {/* Notice I changed text-earth-dark to text-white here so it's visible! */}
+            <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-white mt-1">
               Gallery
             </h2>
           </div>

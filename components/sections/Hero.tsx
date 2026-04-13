@@ -4,13 +4,8 @@ import { motion } from "framer-motion";
 
 // Small decorative bubbles — more quantity, bigger sizes
 const bubbles = [
-  { size: 38, top: "5%", left: "20%", delay: 0, duration: 8 },
-  { size: 34, top: "15%", left: "32%", delay: 1, duration: 6 },
-  { size: 30, top: "30%", left: "18%", delay: 2, duration: 7 },
-  { size: 35, top: "50%", left: "18%", delay: 0.5, duration: 9 },
-  { size: 38, top: "65%", left: "55%", delay: 3, duration: 6.5 },
-  { size: 30, top: "80%", left: "72%", delay: 1.8, duration: 7.5 },
-  { size: 38, top: "8%", right: "62%", delay: 1.5, duration: 7 },
+  { size: 60, top: "18%", left: "72%", delay: 1.8, duration: 50 },
+  { size: 68, top: "18%", right: "62%", delay: 1.5, duration: 50 },
 ];
 
 export default function Hero() {
@@ -166,7 +161,7 @@ export default function Hero() {
 
       {/* Image B: Mobile Center -> Desktop Top-Center */}
       <motion.div
-        className="absolute z-[5] rounded-2xl overflow-hidden shadow-2xl shadow-black/30 w-[60px] h-[60px] top-[25%] left-[40%] md:w-[100px] md:h-[100px] md:top-[15%] md:left-[46%]"
+        className="absolute z-[5] rounded-2xl overflow-hidden shadow-2xl shadow-black/30 w-[60px] h-[60px] top-[15%] left-[42%] md:w-[100px] md:h-[100px] md:top-[15%] md:left-[46%]"
         animate={{ opacity: [0.6, 0.85, 0.6], y: [0, -12, 0] }}
         transition={{
           duration: 6,

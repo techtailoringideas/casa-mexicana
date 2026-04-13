@@ -7,7 +7,7 @@ export const siteConfig = {
   phone: "+977 984-0542082",
   phoneDisplay: "984-054-2082",
   email: "casamexicanakathmandu@gmail.com",
-  hours: "Sun–Sat, 11:00 AM – 9:00 PM",
+  hours: "Sun–Fri, 9:00 AM – 9:00 PM || Sat, 11:00 AM - 9:00 PM",
   hoursShort: "11 AM – 9 PM Daily",
   googleMapsUrl: "https://maps.app.goo.gl/NaPq74g7NJY1S5uPA",
   googleMapsEmbed:

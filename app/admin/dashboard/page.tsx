@@ -271,137 +271,198 @@ export default function AdminDashboard() {
   ).length;
 
   return (
-    <div className="min-h-screen bg-cream">
-      {/* Top bar */}
-      <div className="bg-earth-dark text-white px-4 sm:px-6 py-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img
-              src="/images/logo.webp"
-              alt="Casa Mexicana"
-              className="w-20 h-15 rounded-full object-cover"
-            />
-
-            <span
-              className="text-2xl text-pink"
-              style={{ fontFamily: "var(--font-breathing)" }}
+    <div className="min-h-screen bg-[#0A3A38]">
+      {/* Top bar - Optimized for Visual Smoothness */}
+      <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0A3A38]/80 backdrop-blur-lg transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+          <div className="flex items-center justify-between h-16">
+            {/* Brand Identity */}
+            <div
+              className="flex items-center gap-4 group cursor-pointer"
+              onClick={() => setView("orders")}
             >
-              Casa
-            </span>
-            <span
-              className="text-lg text-white uppercase tracking-[0.15em] ml-1"
-              style={{ fontFamily: "var(--font-bebas)" }}
-            >
-              Mexicana
-            </span>
-            <span className="font-playfair text-sm uppercase tracking-[0.2em] font-bold">
-              Kitchen
-            </span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="text-white/60 text-sm hidden sm:block">
-              Hi, {adminName}
-            </span>
-            <button
-              onClick={() => {
-                if (view === "gallery") {
-                  setView("orders");
-                } else {
-                  setView("gallery");
-                  fetchGallery();
-                }
-              }}
-              className={`flex items-center gap-1.5 text-sm transition-colors ${
-                view === "gallery"
-                  ? "text-pink"
-                  : "text-white/60 hover:text-white"
-              }`}
-            >
-              <ImagePlus size={16} />
-              <span className="hidden sm:inline">Gallery</span>
-            </button>
-            <button
-              onClick={fetchOrders}
-              className="text-white/60 hover:text-white transition-colors"
-              aria-label="Refresh"
-            >
-              <RefreshCw size={18} />
-            </button>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-1.5 text-white/60 hover:text-white transition-colors text-sm"
-            >
-              <LogOut size={16} />
-              <span className="hidden sm:inline">Logout</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
-        {/* ===== GALLERY VIEW ===== */}
-        {view === "gallery" ? (
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setView("orders")}
-                  className="w-8 h-8 rounded-full bg-white flex items-center justify-center hover:bg-gray-100 transition-colors"
-                >
-                  <ArrowLeft size={16} />
-                </button>
-                <h2 className="font-playfair text-xl font-bold text-earth-dark">
-                  Gallery Photos ({galleryImages.length})
-                </h2>
-              </div>
-              <label className="flex items-center gap-2 px-5 py-2.5 bg-pink text-white text-sm font-semibold rounded-full hover:bg-pink-dark transition-colors cursor-pointer">
-                <ImagePlus size={16} />
-                {uploading ? "Uploading..." : "Upload Photos"}
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleUpload}
-                  className="hidden"
-                  disabled={uploading}
+              <div className="relative">
+                <img
+                  src="/images/logo.webp"
+                  alt="Casa Mexicana"
+                  className="w-12 h-12 rounded-full object-cover ring-2 ring-pink/20 group-hover:ring-pink/50 transition-all"
                 />
-              </label>
+                <div className="absolute inset-0 rounded-full bg-pink/5 animate-pulse"></div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-1.5">
+                <span
+                  className="text-2xl text-pink leading-none"
+                  style={{ fontFamily: "var(--font-breathing)" }}
+                >
+                  Casa
+                </span>
+                <span
+                  className="text-sm sm:text-lg text-white uppercase tracking-[0.2em] font-medium opacity-90"
+                  style={{ fontFamily: "var(--font-bebas)" }}
+                >
+                  Mexicana{" "}
+                  <span className="text-teal font-bold text-xs sm:text-sm ml-0.5">
+                    Kitchen
+                  </span>
+                </span>
+              </div>
             </div>
 
-            {galleryLoading ? (
-              <div className="text-center py-20 text-muted">
-                Loading photos...
+            {/* Navigation Actions */}
+            <div className="flex items-center gap-2 sm:gap-6">
+              {/* Gallery Toggle */}
+              <button
+                onClick={() => {
+                  if (view === "gallery") {
+                    setView("orders");
+                  } else {
+                    setView("gallery");
+                    fetchGallery();
+                  }
+                }}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  view === "gallery"
+                    ? "bg-pink text-white shadow-lg shadow-pink/20"
+                    : "text-white/70 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                <ImagePlus
+                  size={18}
+                  className={view === "gallery" ? "animate-bounce" : ""}
+                />
+                <span className="hidden md:inline">Manage Gallery</span>
+              </button>
+
+              {/* Status Info & Actions */}
+              <div className="flex items-center gap-2 border-l border-white/10 pl-2 sm:pl-6">
+                <button
+                  onClick={fetchOrders}
+                  className="p-2 text-white/60 hover:text-teal hover:bg-teal/10 rounded-full transition-all active:rotate-180 duration-500"
+                  title="Refresh Orders"
+                >
+                  <RefreshCw size={20} />
+                </button>
+
+                <div className="h-8 w-[1px] bg-white/10 hidden sm:block mx-2"></div>
+
+                <button
+                  onClick={handleLogout}
+                  className="group flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all duration-200 text-sm font-semibold"
+                >
+                  <LogOut
+                    size={18}
+                    className="group-hover:-translate-x-1 transition-transform"
+                  />
+                  <span className="hidden sm:inline">Exit</span>
+                </button>
               </div>
-            ) : galleryImages.length === 0 ? (
-              <div className="text-center py-20">
-                <p className="text-lg text-muted">No photos yet</p>
-                <p className="text-sm text-muted/60 mt-1">
-                  Upload photos to show in the gallery
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                {galleryImages.map((img) => (
-                  <div
-                    key={img.name}
-                    className="relative group rounded-2xl overflow-hidden aspect-square"
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+        {/* ===== MANAGED GALLERY VIEW - VISUALLY SMOOTH OPTIMIZATION ===== */}
+        {view === "gallery" ? (
+          <div className="bg-white rounded-3xl shadow-lg shadow-earth-dark/5 overflow-hidden border border-earth-dark/5">
+            {/* 1. Balanced Header & Toolbar Section */}
+            <div className="bg-earth-dark/5 px-6 sm:px-8 py-5 border-b border-earth-dark/10">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => setView("orders")}
+                    className="w-10 h-10 rounded-full bg-white border border-earth-dark/10 flex items-center justify-center text-earth-dark hover:bg-earth-dark hover:text-white hover:border-earth-dark transition-all duration-300"
+                    title="Back to Orders"
                   >
-                    <img
-                      src={img.url}
-                      alt={img.name}
-                      className="w-full h-full object-cover"
-                    />
-                    <button
-                      onClick={() => handleDeleteImage(img.name)}
-                      className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                      aria-label="Delete photo"
-                    >
-                      <Trash2 size={14} />
-                    </button>
+                    <ArrowLeft size={18} />
+                  </button>
+                  <div>
+                    <h2 className="font-playfair text-2xl font-bold text-earth-dark">
+                      Manage Gallery
+                    </h2>
+                    <p className="text-sm text-muted">
+                      {galleryImages.length}{" "}
+                      {galleryImages.length === 1 ? "photo" : "photos"}{" "}
+                      currently showing
+                    </p>
                   </div>
-                ))}
+                </div>
+
+                {/* Main Action - Integrated & Balanced */}
+                <label className="flex items-center gap-2.5 px-6 py-3 bg-pink text-white text-sm font-semibold rounded-full hover:bg-pink-dark transition-all shadow-md shadow-pink/10 cursor-pointer whitespace-nowrap">
+                  <ImagePlus
+                    size={18}
+                    className={uploading ? "animate-spin" : ""}
+                  />
+                  {uploading ? "Uploading..." : "Add New Photos"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleUpload}
+                    className="hidden"
+                    disabled={uploading}
+                  />
+                </label>
               </div>
-            )}
+            </div>
+
+            {/* 2. Photo Content Area */}
+            <div className="px-6 sm:px-8 py-8">
+              {galleryLoading ? (
+                <div className="text-center py-20 text-muted">
+                  <RefreshCw className="w-8 h-8 animate-spin mx-auto text-teal mb-4" />
+                  Refreshing library...
+                </div>
+              ) : galleryImages.length === 0 ? (
+                <div className="text-center py-20 bg-earth-dark/[0.02] rounded-2xl border-2 border-dashed border-earth-dark/10">
+                  <ChefHat className="w-12 h-12 text-teal/40 mx-auto mb-4" />
+                  <p className="text-lg text-earth-dark font-medium">
+                    Your gallery is empty
+                  </p>
+                  <p className="text-sm text-muted/80 mt-1 max-w-sm mx-auto">
+                    Add high-quality photos of your best dishes.{" "}
+                    <span className="text-pink font-semibold">Tip:</span> Aim
+                    for a mix of close-ups and table settings.
+                  </p>
+                </div>
+              ) : (
+                /* 3. Refined Photo Grid */
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                  {galleryImages.map((img) => (
+                    <div
+                      key={img.name}
+                      className="relative group rounded-2xl overflow-hidden aspect-[1/1] bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 border border-earth-dark/5 transition-all duration-300"
+                    >
+                      <img
+                        src={img.url}
+                        alt={img.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+
+                      {/* Subtle Overlay on Hover */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                      {/* Professional Management Actions */}
+                      <button
+                        onClick={() => handleDeleteImage(img.name)}
+                        className="absolute top-3 right-3 w-9 h-9 bg-white text-red-500 rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 hover:bg-red-50 hover:scale-110 transition-all duration-300"
+                        title="Delete photo"
+                        aria-label="Delete photo"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+
+                      {/* Subtle File Name (Hidden until hover) */}
+                      <div className="absolute bottom-3 left-3 right-3 text-xs text-white/90 truncate opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300 font-medium">
+                        {img.name}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         ) : (
           <>
@@ -457,7 +518,11 @@ export default function AdminDashboard() {
                   return (
                     <div
                       key={group.sessionId}
-                      className="bg-white rounded-2xl overflow-hidden shadow-sm"
+                      className={`bg-[#FFFDF5] rounded-3xl overflow-hidden shadow-sm transition-all duration-300 ${
+                        isClosed
+                          ? "opacity-50 grayscale-[0.4] scale-[0.98]"
+                          : "opacity-100"
+                      }`}
                     >
                       {/* Table header */}
                       <div className="bg-earth-dark/5 px-5 py-4">
@@ -548,10 +613,17 @@ export default function AdminDashboard() {
                                   key={j}
                                   className="flex justify-between text-body"
                                 >
-                                  <span>
-                                    {item.quantity}× {item.name}
-                                    {item.variantLabel &&
-                                      ` (${item.variantLabel})`}
+                                  <span className="text-body">
+                                    <span className="font-bold text-[#0A3A38]">
+                                      {item.quantity}×
+                                    </span>{" "}
+                                    {item.name}
+                                    {item.variantLabel && (
+                                      <span className="text-muted text-xs">
+                                        {" "}
+                                        ({item.variantLabel})
+                                      </span>
+                                    )}
                                   </span>
                                   <span className="text-earth-dark font-medium">
                                     Rs {item.price * item.quantity}

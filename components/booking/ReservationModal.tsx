@@ -53,13 +53,6 @@ export default function ReservationModal() {
       />
 
       {/* Floating Book button — mobile thumb zone */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-pink text-white rounded-full shadow-lg shadow-pink/30 flex items-center justify-center hover:bg-pink-dark transition-colors lg:hidden"
-        aria-label="Book a Table"
-      >
-        <Calendar size={24} />
-      </button>
 
       <AnimatePresence>
         {isOpen && (

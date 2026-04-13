@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Gallery from "@/components/sections/Gallery";
+
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [pin, setPin] = useState("");
@@ -38,67 +38,78 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-earth-dark flex items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        {/* Logo */}
+    // Updated background to the exact Brand Teal
+    <div className="min-h-screen bg-[#0A3A38] flex items-center justify-center px-4 relative overflow-hidden">
+      {/* Decorative background glow to make it look premium */}
+      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-pink/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-pink/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="w-full max-w-sm relative z-10">
+        {/* Logo Section */}
         <div className="text-center mb-8 flex flex-col items-center">
-          {/* 1. The Image on top */}
           <img
             src="/images/logo.webp"
             alt="Casa Mexicana Logo"
-            className="w-32 h-32 rounded-full mx-auto mb-4 object-cover shadow-lg shadow-black/20"
+            className="w-28 h-28 object-contain mx-auto mb-4 drop-shadow-2xl"
           />
 
-          {/* 2. Casa Mexicana Text right below the image */}
-          <div className="flex items-baseline justify-center gap-2 mb-1">
-            <span className="font-caveat text-4xl text-pink">Casa</span>
-            <span className="font-playfair text-lg text-white uppercase tracking-[0.2em] font-bold">
+          <div className="flex items-baseline justify-center gap-1">
+            <span
+              className="font-caveat text-5xl text-pink"
+              style={{ fontFamily: "var(--font-breathing)" }}
+            >
+              Casa
+            </span>
+            <span
+              className="font-bebas text-2xl text-white uppercase tracking-[0.15em]"
+              style={{ fontFamily: "var(--font-bebas)" }}
+            >
               Mexicana
             </span>
           </div>
-
-          {/* 3. Subtitle */}
-          <p className="text-white/50 text-sm">Kitchen Admin Panel</p>
+          <p className="text-white/40 text-[10px] uppercase tracking-[0.3em] mt-2 font-bold">
+            Kitchen Admin Panel
+          </p>
         </div>
 
-        {/* Login form */}
-        <div className="bg-white rounded-2xl p-6 shadow-xl">
-          <h2 className="font-playfair text-xl font-bold text-earth-dark mb-6 text-center">
+        {/* Login form Card */}
+        <div className="bg-[#FFFDF5] rounded-[2.5rem] p-8 shadow-2xl shadow-black/40 border border-white/5">
+          <h2 className="font-playfair text-2xl font-bold text-[#0A3A38] mb-8 text-center">
             Staff Login
           </h2>
 
           {error && (
-            <div className="bg-red-50 text-red-600 text-sm rounded-xl p-3 mb-4 text-center">
+            <div className="bg-red-50 text-red-600 text-xs font-semibold rounded-2xl p-4 mb-6 text-center border border-red-100 animate-shake">
               {error}
             </div>
           )}
 
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
-              <label className="text-xs text-muted mb-1 block font-medium">
-                Email
+              <label className="text-[10px] uppercase tracking-widest text-[#0A3A38]/60 mb-2 block font-bold px-1">
+                Admin Email
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@casamexicana.com"
-                className="w-full px-4 py-3 bg-cream rounded-xl text-sm text-earth-dark placeholder:text-muted/50 outline-none focus:ring-2 focus:ring-pink/30"
+                placeholder="chef@casamexicana.com"
+                className="w-full px-5 py-4 bg-white border border-[#0A3A38]/5 rounded-2xl text-sm text-[#0A3A38] placeholder:text-[#0A3A38]/30 outline-none focus:ring-2 focus:ring-pink/20 focus:border-pink/30 transition-all"
                 style={{ fontSize: "16px" }}
               />
             </div>
 
             <div>
-              <label className="text-xs text-muted mb-1 block font-medium">
-                PIN
+              <label className="text-[10px] uppercase tracking-widest text-[#0A3A38]/60 mb-2 block font-bold px-1">
+                Security PIN
               </label>
               <input
                 type="password"
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
-                placeholder="Enter your PIN"
+                placeholder="••••"
                 maxLength={6}
-                className="w-full px-4 py-3 bg-cream rounded-xl text-sm text-earth-dark placeholder:text-muted/50 outline-none focus:ring-2 focus:ring-pink/30 tracking-[0.3em] text-center"
+                className="w-full px-5 py-4 bg-white border border-[#0A3A38]/5 rounded-2xl text-sm text-[#0A3A38] placeholder:text-[#0A3A38]/30 outline-none focus:ring-2 focus:ring-pink/20 focus:border-pink/30 tracking-[0.5em] text-center transition-all"
                 style={{ fontSize: "16px" }}
               />
             </div>
@@ -106,14 +117,14 @@ export default function AdminLogin() {
             <button
               onClick={handleLogin}
               disabled={loading || !email || !pin}
-              className="w-full py-3.5 bg-pink text-white font-semibold rounded-full hover:bg-pink-dark transition-colors disabled:opacity-40 text-sm"
+              className="w-full py-4 bg-pink text-white font-bold rounded-2xl hover:bg-pink-dark active:scale-[0.98] transition-all disabled:opacity-40 shadow-lg shadow-pink/20 mt-2 text-sm uppercase tracking-widest"
             >
-              {loading ? "Logging in..." : "Login"}
+              {loading ? "Verifying..." : "Access Dashboard"}
             </button>
           </div>
 
-          <p className="text-xs text-muted text-center mt-4">
-            Authorized staff only. Contact management for access.
+          <p className="text-[10px] text-[#0A3A38]/40 text-center mt-6 leading-relaxed">
+            Authorized staff only. <br /> Access is monitored for security.
           </p>
         </div>
       </div>

@@ -38,7 +38,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="#" className="flex items-center gap-0 group -ml-4 sm:ml-0">
             <img
               src="/images/logo.webp"
               alt="Casa Mexicana"
