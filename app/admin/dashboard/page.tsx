@@ -244,7 +244,7 @@ export default function AdminDashboard() {
     if (!token) return;
 
     if (!confirm("Delete this photo?")) return;
-
+    setGalleryImages((prev) => prev.filter((img) => img.name !== fileName));
     await fetch("/api/admin/gallery", {
       method: "DELETE",
       headers: {

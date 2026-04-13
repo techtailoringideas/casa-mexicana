@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || "",
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
@@ -28,5 +31,12 @@ export async function GET() {
       created_at: file.created_at,
     }));
 
-  return NextResponse.json({ images });
+  return NextResponse.json(
+    { images },
+    {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+      },
+    },
+  );
 }
