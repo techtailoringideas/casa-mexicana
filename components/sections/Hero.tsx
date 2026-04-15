@@ -33,7 +33,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/bg2.jpg"
+          src="/images/bg2.avif"
           alt="Casa Mexicana Food"
           fill
           sizes="150px"
@@ -53,7 +53,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/bg4.jpg"
+          src="/images/bg4.avif"
           alt="Casa Mexicana Food"
           fill
           sizes="120px"
@@ -73,7 +73,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/bg5.png"
+          src="/images/bg5.avif"
           alt="Casa Mexicana Food"
           fill
           sizes="135px"
@@ -95,7 +95,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/bg6.jpg"
+          src="/images/bg6.avif"
           alt="Casa Mexicana Food"
           fill
           sizes="150px"
@@ -115,7 +115,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/bg8.png"
+          src="/images/bg8.avif"
           alt="Casa Mexicana Food"
           fill
           sizes="120px"
@@ -135,7 +135,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/bg9.png"
+          src="/images/bg9.avif"
           alt="Casa Mexicana Food"
           fill
           sizes="135px"
@@ -157,7 +157,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/bg1.jpg"
+          src="/images/bg1.avif"
           alt="Casa Mexicana Food"
           fill
           sizes="(max-width: 768px) 70px, 110px"
@@ -178,7 +178,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/bg3.jpg"
+          src="/images/bg3.avif"
           alt="Casa Mexicana Food"
           fill
           sizes="(max-width: 768px) 60px, 100px"
@@ -199,7 +199,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/bg7.png"
+          src="/images/bg7.avif"
           alt="Casa Mexicana Food"
           fill
           sizes="(max-width: 768px) 70px, 110px"
@@ -244,7 +244,7 @@ export default function Hero() {
           className="mb-6"
         >
           <Image
-            src="/images/logo.webp"
+            src="/images/logo.avif"
             alt="Casa Mexicana"
             width={200}
             height={160}
