@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 // Small decorative bubbles — more quantity, bigger sizes
 const bubbles = [
-  { size: 60, top: "18%", left: "72%", delay: 1.8, duration: 50 },
-  { size: 68, top: "18%", right: "62%", delay: 1.5, duration: 50 },
+  { size: 60, top: "18%", left: "72%", delay: 1.8, duration: 5 },
+  { size: 68, top: "18%", right: "62%", delay: 1.5, duration: 5 },
 ];
 
 export default function Hero() {
@@ -38,7 +38,7 @@ export default function Hero() {
           fill
           sizes="150px"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -58,7 +58,7 @@ export default function Hero() {
           fill
           sizes="120px"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -78,7 +78,7 @@ export default function Hero() {
           fill
           sizes="135px"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -100,7 +100,7 @@ export default function Hero() {
           fill
           sizes="150px"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -120,7 +120,7 @@ export default function Hero() {
           fill
           sizes="120px"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -140,7 +140,7 @@ export default function Hero() {
           fill
           sizes="135px"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -162,7 +162,7 @@ export default function Hero() {
           fill
           sizes="(max-width: 768px) 70px, 110px"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -183,7 +183,7 @@ export default function Hero() {
           fill
           sizes="(max-width: 768px) 60px, 100px"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -204,7 +204,7 @@ export default function Hero() {
           fill
           sizes="(max-width: 768px) 70px, 110px"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -246,8 +246,8 @@ export default function Hero() {
           <Image
             src="/images/logo.webp"
             alt="Casa Mexicana"
-            width={2475}
-            height={1913}
+            width={200}
+            height={160}
             className="w-40 h-30 sm:w-50 sm:h-40  mx-auto mb-4"
             priority
           />
