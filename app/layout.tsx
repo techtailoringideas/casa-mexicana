@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import {
   Playfair_Display,
   DM_Sans,
@@ -116,7 +117,7 @@ export default function RootLayout({
         {children}
 
         {/* GA4 — replace G-XXXXXXX with real ID */}
-        <script
+        <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"
         />
