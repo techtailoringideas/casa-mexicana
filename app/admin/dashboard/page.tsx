@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   Clock,
@@ -282,9 +283,11 @@ export default function AdminDashboard() {
               onClick={() => setView("orders")}
             >
               <div className="relative">
-                <img
-                  src="/images/logo.webp"
+                <Image
+                  src="/images/logo.avif"
                   alt="Casa Mexicana"
+                  width={200}
+                  height={150}
                   className="w-12 h-12 rounded-full object-cover ring-2 ring-pink/20 group-hover:ring-pink/50 transition-all"
                 />
                 <div className="absolute inset-0 rounded-full bg-pink/5 animate-pulse"></div>
@@ -344,7 +347,7 @@ export default function AdminDashboard() {
                   <RefreshCw size={20} />
                 </button>
 
-                <div className="h-8 w-[1px] bg-white/10 hidden sm:block mx-2"></div>
+                <div className="h-8 w-px bg-white/10 hidden sm:block mx-2"></div>
 
                 <button
                   onClick={handleLogout}
@@ -416,7 +419,7 @@ export default function AdminDashboard() {
                   Refreshing library...
                 </div>
               ) : galleryImages.length === 0 ? (
-                <div className="text-center py-20 bg-earth-dark/[0.02] rounded-2xl border-2 border-dashed border-earth-dark/10">
+                <div className="text-center py-20 bg-earth-dark/2 rounded-2xl border-2 border-dashed border-earth-dark/10">
                   <ChefHat className="w-12 h-12 text-teal/40 mx-auto mb-4" />
                   <p className="text-lg text-earth-dark font-medium">
                     Your gallery is empty
@@ -433,9 +436,9 @@ export default function AdminDashboard() {
                   {galleryImages.map((img) => (
                     <div
                       key={img.name}
-                      className="relative group rounded-2xl overflow-hidden aspect-[1/1] bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 border border-earth-dark/5 transition-all duration-300"
+                      className="relative group rounded-2xl overflow-hidden aspect-square bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 border border-earth-dark/5 transition-all duration-300"
                     >
-                      <img
+                      <Image
                         src={img.url}
                         alt={img.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

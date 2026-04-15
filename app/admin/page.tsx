@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -41,15 +42,17 @@ export default function AdminLogin() {
     // Updated background to the exact Brand Teal
     <div className="min-h-screen bg-[#0A3A38] flex items-center justify-center px-4 relative overflow-hidden">
       {/* Decorative background glow to make it look premium */}
-      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-pink/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-pink/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-[-10%] right-[-10%] w-125 h-125 bg-pink/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-100 h-100 bg-pink/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="w-full max-w-sm relative z-10">
         {/* Logo Section */}
         <div className="text-center mb-8 flex flex-col items-center">
-          <img
-            src="/images/logo.webp"
+          <Image
+            src="/images/logo.avif"
             alt="Casa Mexicana Logo"
+            width={200}
+            height={150}
             className="w-28 h-28 object-contain mx-auto mb-4 drop-shadow-2xl"
           />
 

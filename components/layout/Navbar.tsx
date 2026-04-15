@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { useCart } from "@/store/useCart";
 import { siteConfig } from "@/data/site";
+import Image from "next/image";
 
 const navLinks = [
   { label: "Menu", href: "#menu" },
@@ -39,9 +40,11 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
           <a href="#" className="flex items-center gap-0 group -ml-4 sm:ml-0">
-            <img
-              src="/images/logo.webp"
+            <Image
+              src="/images/logo.avif"
               alt="Casa Mexicana"
+              width={200}
+              height={150}
               className="w-20 h-15 "
             />
             <div className="flex items-baseline gap-1">
@@ -142,7 +145,7 @@ export default function Navbar() {
               onClick={() => setDrawerOpen(false)}
             />
             <motion.div
-              className="fixed top-0 right-0 bottom-0 w-72 bg-gradient-to-b from-[#0D5C58] via-[#0D5C58] to-[#D97706] z-50 md:hidden flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-72 bg-linear-to-b from-[#0D5C58] via-[#0D5C58] to-[#D97706] z-50 md:hidden flex flex-col"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
