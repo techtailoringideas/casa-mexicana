@@ -14,6 +14,8 @@ import {
   ImagePlus,
   Trash2,
   ArrowLeft,
+  Star,
+  ThumbsUp,
 } from "lucide-react";
 
 interface OrderItem {
@@ -37,6 +39,16 @@ interface Order {
     bill_requested: boolean;
     status: string;
   };
+}
+interface Review {
+  id: string;
+  name: string;
+  location: string;
+  rating: number;
+  quote: string;
+  status: "pending" | "approved";
+  created_at: string;
+  featured: boolean;
 }
 
 const statusFlow = ["pending", "preparing", "ready", "served"];
@@ -113,12 +125,14 @@ export default function AdminDashboard() {
   const [adminName, setAdminName] = useState("");
   const router = useRouter();
 
-  const [view, setView] = useState<"orders" | "gallery">("orders");
+  const [view, setView] = useState<"orders" | "gallery" | "reviews">("orders");
   const [galleryImages, setGalleryImages] = useState<
     { name: string; url: string }[]
   >([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
 
   const fetchOrders = useCallback(async () => {
     const token = sessionStorage.getItem("admin_token");
@@ -215,6 +229,57 @@ export default function AdminDashboard() {
     }
     setGalleryLoading(false);
   };
+  const fetchReviews = async () => {
+    const token = sessionStorage.getItem("admin_token");
+    if (!token) return;
+    setReviewsLoading(true);
+    try {
+      const res = await fetch("/api/admin/reviews", {
+        headers: { authorization: token },
+      });
+      const data = await res.json();
+      setReviews(data.reviews || []);
+    } catch {
+      console.error("Failed to fetch reviews");
+    }
+    setReviewsLoading(false);
+  };
+
+  const approveReview = async (id: string) => {
+    const token = sessionStorage.getItem("admin_token");
+    if (!token) return;
+    await fetch("/api/admin/reviews", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", authorization: token },
+      body: JSON.stringify({ id }),
+    });
+    fetchReviews();
+  };
+
+  const toggleFeatured = async (id: string, current: boolean) => {
+    const token = sessionStorage.getItem("admin_token");
+    if (!token) return;
+    setReviews((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, featured: !r.featured } : r)),
+    );
+    await fetch("/api/admin/reviews", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", authorization: token },
+      body: JSON.stringify({ id, action: "toggleFeatured" }),
+    });
+  };
+
+  const deleteReview = async (id: string) => {
+    const token = sessionStorage.getItem("admin_token");
+    if (!token) return;
+    if (!confirm("Delete this review?")) return;
+    setReviews((prev) => prev.filter((r) => r.id !== id));
+    await fetch("/api/admin/reviews", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json", authorization: token },
+      body: JSON.stringify({ id }),
+    });
+  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const token = sessionStorage.getItem("admin_token");
@@ -263,6 +328,7 @@ export default function AdminDashboard() {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
+      timeZone: "Asia/Kathmandu",
     });
   };
 
@@ -314,7 +380,34 @@ export default function AdminDashboard() {
 
             {/* Navigation Actions */}
             <div className="flex items-center gap-2 sm:gap-6">
+              {/* Reviews Toggle */}
+              <button
+                onClick={() => {
+                  if (view === "reviews") {
+                    setView("orders");
+                  } else {
+                    setView("reviews");
+                    fetchReviews();
+                  }
+                }}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  view === "reviews"
+                    ? "bg-teal text-white shadow-lg shadow-teal/20"
+                    : "text-white/70 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                <Star size={18} />
+                <span className="hidden md:inline">
+                  Reviews
+                  {reviews.filter((r) => r.status === "pending").length > 0 && (
+                    <span className="ml-1.5 bg-pink text-white text-xs px-1.5 py-0.5 rounded-full">
+                      {reviews.filter((r) => r.status === "pending").length}
+                    </span>
+                  )}
+                </span>
+              </button>
               {/* Gallery Toggle */}
+
               <button
                 onClick={() => {
                   if (view === "gallery") {
@@ -366,8 +459,181 @@ export default function AdminDashboard() {
       </nav>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
-        {/* ===== MANAGED GALLERY VIEW - VISUALLY SMOOTH OPTIMIZATION ===== */}
-        {view === "gallery" ? (
+        {view === "reviews" ? (
+          <div className="bg-white rounded-3xl shadow-lg overflow-hidden border border-earth-dark/5">
+            {/* Header */}
+            <div className="bg-earth-dark/5 px-6 sm:px-8 py-5 border-b border-earth-dark/10">
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setView("orders")}
+                  className="w-10 h-10 rounded-full bg-white border border-earth-dark/10 flex items-center justify-center text-earth-dark hover:bg-earth-dark hover:text-white transition-all duration-300"
+                >
+                  <ArrowLeft size={18} />
+                </button>
+                <div>
+                  <h2 className="font-playfair text-2xl font-bold text-earth-dark">
+                    Reviews
+                  </h2>
+                  <p className="text-sm text-muted">
+                    {reviews.filter((r) => r.status === "pending").length}{" "}
+                    pending ·{" "}
+                    {reviews.filter((r) => r.status === "approved").length}{" "}
+                    approved
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="px-6 sm:px-8 py-8">
+              {reviewsLoading ? (
+                <div className="text-center py-20 text-muted">
+                  <RefreshCw className="w-8 h-8 animate-spin mx-auto text-teal mb-4" />
+                  Loading reviews...
+                </div>
+              ) : reviews.length === 0 ? (
+                <div className="text-center py-20 bg-earth-dark/2 rounded-2xl border-2 border-dashed border-earth-dark/10">
+                  <Star className="w-12 h-12 text-teal/40 mx-auto mb-4" />
+                  <p className="text-lg text-earth-dark font-medium">
+                    No reviews yet
+                  </p>
+                  <p className="text-sm text-muted mt-1">
+                    Reviews submitted by customers will appear here.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {/* Pending first */}
+                  {["pending", "approved"].map((statusGroup) => {
+                    const filtered = reviews.filter(
+                      (r) => r.status === statusGroup,
+                    );
+                    if (filtered.length === 0) return null;
+                    return (
+                      <div key={statusGroup}>
+                        <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">
+                          {statusGroup === "pending"
+                            ? "⏳ Pending Approval"
+                            : "✅ Approved"}
+                        </p>
+                        <div className="space-y-3">
+                          {filtered.map((review) => (
+                            <div
+                              key={review.id}
+                              className={`rounded-2xl p-5 border transition-all ${
+                                review.status === "pending"
+                                  ? "bg-yellow/5 border-yellow/20"
+                                  : "bg-teal/5 border-teal/20"
+                              }`}
+                            >
+                              <div className="flex items-start justify-between gap-4">
+                                <div className="flex-1">
+                                  {/* Stars */}
+                                  <div className="flex gap-0.5 mb-2">
+                                    {Array.from({ length: 5 }).map((_, i) => (
+                                      <Star
+                                        key={i}
+                                        size={14}
+                                        fill={
+                                          i < review.rating ? "#F59E0B" : "none"
+                                        }
+                                        stroke={
+                                          i < review.rating
+                                            ? "#F59E0B"
+                                            : "#D1D5DB"
+                                        }
+                                      />
+                                    ))}
+                                  </div>
+                                  {/* Quote */}
+                                  <p className="text-sm text-earth-dark italic mb-3">
+                                    &ldquo;{review.quote}&rdquo;
+                                  </p>
+                                  {/* Author */}
+                                  <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-full bg-teal/20 flex items-center justify-center text-teal text-xs font-bold">
+                                      {review.name.charAt(0)}
+                                    </div>
+                                    <div>
+                                      <p className="text-sm font-semibold text-earth-dark">
+                                        {review.name}
+                                      </p>
+                                      <p className="text-xs text-muted">
+                                        {review.location} ·{" "}
+                                        {new Date(
+                                          new Date(
+                                            review.created_at,
+                                          ).getTime() +
+                                            (5 * 60 + 45) * 60000,
+                                        ).toLocaleString("en-US", {
+                                          month: "short",
+                                          day: "numeric",
+                                          year: "numeric",
+                                          hour: "numeric",
+                                          minute: "2-digit",
+                                          hour12: true,
+                                        })}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Actions */}
+                                <div className="flex flex-col gap-2 shrink-0">
+                                  {review.status === "pending" && (
+                                    <button
+                                      onClick={() => approveReview(review.id)}
+                                      className="flex items-center gap-1.5 px-4 py-2 bg-teal text-white text-xs font-semibold rounded-full hover:opacity-90 transition-opacity"
+                                    >
+                                      <ThumbsUp size={13} />
+                                      Approve
+                                    </button>
+                                  )}
+                                  {review.status === "approved" && (
+                                    <button
+                                      onClick={() =>
+                                        toggleFeatured(
+                                          review.id,
+                                          review.featured,
+                                        )
+                                      }
+                                      className={`flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-full transition-colors ${
+                                        review.featured
+                                          ? "bg-yellow text-earth-dark hover:opacity-80"
+                                          : "bg-yellow/10 text-yellow hover:bg-yellow/20"
+                                      }`}
+                                    >
+                                      <Star
+                                        size={13}
+                                        fill={
+                                          review.featured
+                                            ? "currentColor"
+                                            : "none"
+                                        }
+                                      />
+                                      {review.featured ? "Featured" : "Feature"}
+                                    </button>
+                                  )}
+                                  <button
+                                    onClick={() => deleteReview(review.id)}
+                                    className="flex items-center gap-1.5 px-4 py-2 bg-red-500/10 text-red-500 text-xs font-semibold rounded-full hover:bg-red-500 hover:text-white transition-colors"
+                                  >
+                                    <Trash2 size={13} />
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        ) : view === "gallery" ? (
           <div className="bg-white rounded-3xl shadow-lg shadow-earth-dark/5 overflow-hidden border border-earth-dark/5">
             {/* 1. Balanced Header & Toolbar Section */}
             <div className="bg-earth-dark/5 px-6 sm:px-8 py-5 border-b border-earth-dark/10">

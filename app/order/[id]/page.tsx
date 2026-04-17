@@ -8,9 +8,11 @@ import {
   CheckCircle,
   Package,
   UtensilsCrossed,
+  Star, // Added Star here
 } from "lucide-react";
 import { getOrderStatus } from "@/lib/orders";
 import { useOrderTrack } from "@/store/useOrderTrack";
+import ReviewModal from "@/components/ui/ReviewModal"; // Added ReviewModal import
 
 interface OrderItem {
   id: string;
@@ -44,6 +46,10 @@ export default function OrderStatusPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const clearSession = useOrderTrack((s) => s.clearSession);
+
+  // Added review modal state
+  const [showReview, setShowReview] = useState(false);
+
   useEffect(() => {
     if (!orderId) return;
 
@@ -237,7 +243,7 @@ export default function OrderStatusPage() {
           </p>
         )}
 
-        {/* Served message / New order button */}
+        {/* Served message / New order button with Review block */}
         {isServed ? (
           <div className="text-center">
             <div className="bg-pink/10 rounded-2xl p-6 mb-4">
@@ -246,13 +252,24 @@ export default function OrderStatusPage() {
               </p>
               <p className="text-sm text-muted">Your order has been served.</p>
             </div>
+
+            <button
+              onClick={() => setShowReview(true)}
+              className="flex items-center justify-center gap-2 w-full py-3 bg-teal text-white font-semibold rounded-2xl mb-3 hover:opacity-90 transition-opacity text-sm"
+            >
+              <Star size={16} fill="white" stroke="white" />
+              Leave a Review
+            </button>
+
             <a
               href="/"
               onClick={() => clearSession()}
-              className="inline-block px-8 py-3 bg-pink text-white font-semibold rounded-full hover:bg-pink-dark transition-colors text-sm"
+              className="inline-block px-8 py-3 w-full bg-pink text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm"
             >
               Order More
             </a>
+
+            {showReview && <ReviewModal onClose={() => setShowReview(false)} />}
           </div>
         ) : (
           <div className="text-center">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import ReviewModal from "@/components/ui/ReviewModal";
 import { useParams } from "next/navigation";
 import {
   Clock,
@@ -10,6 +11,7 @@ import {
   Plus,
   Receipt,
   LogOut,
+  Star,
 } from "lucide-react";
 import {
   getSessionOrders,
@@ -73,6 +75,7 @@ export default function SessionPage() {
   const [sessionClosed, setSessionClosed] = useState(false);
   const [billRequested, setBillRequested] = useState(false);
   const [requestingBill, setRequestingBill] = useState(false);
+  const [showReview, setShowReview] = useState(false);
   const clearSession = useOrderTrack((s) => s.clearSession);
 
   useEffect(() => {
@@ -82,7 +85,6 @@ export default function SessionPage() {
       const active = await isSessionActive(sessionId);
       if (!active) {
         setSessionClosed(true);
-        // Auto-clear localStorage when session is closed
         clearSession();
         setLoading(false);
         return;
@@ -119,9 +121,7 @@ export default function SessionPage() {
   const handleRequestBill = async () => {
     setRequestingBill(true);
     const success = await requestBill(sessionId);
-    if (success) {
-      setBillRequested(true);
-    }
+    if (success) setBillRequested(true);
     setRequestingBill(false);
   };
 
@@ -152,7 +152,7 @@ export default function SessionPage() {
   if (sessionClosed) {
     return (
       <div className="min-h-screen bg-cream flex items-center justify-center px-4">
-        <div className="text-center max-w-sm">
+        <div className="text-center max-w-sm w-full">
           <div className="bg-pink/10 rounded-2xl p-8 mb-6">
             <p className="font-playfair text-2xl font-bold text-pink mb-2">
               Thank you!
@@ -163,12 +163,20 @@ export default function SessionPage() {
             </p>
           </div>
           <button
+            onClick={() => setShowReview(true)}
+            className="flex items-center justify-center gap-2 w-full py-3 bg-teal text-white font-semibold rounded-2xl mb-3 hover:opacity-90 transition-opacity text-sm shadow-md"
+          >
+            <Star size={16} fill="white" stroke="white" />
+            Leave a Review
+          </button>
+          <button
             onClick={handleNewSession}
-            className="px-8 py-3 bg-pink text-white font-semibold rounded-full hover:bg-pink-dark transition-colors text-sm"
+            className="w-full py-3 bg-pink text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm"
           >
             Start New Order
           </button>
         </div>
+        {showReview && <ReviewModal onClose={() => setShowReview(false)} />}
       </div>
     );
   }
@@ -233,7 +241,6 @@ export default function SessionPage() {
             </div>
           </div>
 
-          {/* Bill requested badge */}
           {billRequested && (
             <div className="mt-3 bg-yellow/10 rounded-xl px-4 py-2 text-center">
               <p className="text-sm font-medium text-yellow">
@@ -254,7 +261,6 @@ export default function SessionPage() {
               key={order.id}
               className="bg-white rounded-2xl p-5 shadow-sm mb-4"
             >
-              {/* Batch header */}
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h3 className="font-playfair text-base font-bold text-earth-dark">
@@ -272,7 +278,6 @@ export default function SessionPage() {
                 </span>
               </div>
 
-              {/* Progress bar */}
               <div className="relative h-1.5 bg-gray-100 rounded-full mb-4">
                 <div
                   className="absolute top-0 left-0 h-full bg-pink rounded-full transition-all duration-700"
@@ -282,7 +287,6 @@ export default function SessionPage() {
                 />
               </div>
 
-              {/* Items */}
               <div className="space-y-2">
                 {order.items.map((item: OrderItem, i: number) => (
                   <div
@@ -320,7 +324,6 @@ export default function SessionPage() {
 
         {/* Action buttons */}
         <div className="space-y-3 mt-2">
-          {/* Add More — only if not all served */}
           {!billRequested && (
             <a
               href="/#menu"
@@ -331,7 +334,6 @@ export default function SessionPage() {
             </a>
           )}
 
-          {/* Request Bill — only if all served and bill not yet requested */}
           {!billRequested && (
             <button
               onClick={handleRequestBill}
@@ -343,25 +345,35 @@ export default function SessionPage() {
             </button>
           )}
 
-          {/* Done / Close Table — customer can close themselves */}
+          {/* Review + Close buttons when bill is requested */}
           {billRequested && (
-            <button
-              onClick={handleDone}
-              className="flex items-center justify-center gap-2 w-full py-4 bg-earth-dark text-white font-semibold rounded-2xl shadow-sm hover:bg-earth-dark/90 transition-colors text-sm"
-            >
-              <LogOut size={18} />
-              Done — Close Table
-            </button>
+            <>
+              <button
+                onClick={() => setShowReview(true)}
+                className="flex items-center justify-center gap-2 w-full py-4 bg-teal text-white font-semibold rounded-2xl shadow-sm hover:opacity-90 transition-opacity text-sm"
+              >
+                <Star size={18} fill="white" stroke="white" />
+                Leave a Review
+              </button>
+              <button
+                onClick={handleDone}
+                className="flex items-center justify-center gap-2 w-full py-4 bg-earth-dark text-white font-semibold rounded-2xl shadow-sm hover:bg-earth-dark/90 transition-colors text-sm"
+              >
+                <LogOut size={18} />
+                Done — Close Table
+              </button>
+            </>
           )}
         </div>
 
-        {/* Auto refresh note */}
         {!allServed && (
           <p className="text-center text-xs text-muted mt-4 mb-6">
             This page updates automatically
           </p>
         )}
       </div>
+
+      {showReview && <ReviewModal onClose={() => setShowReview(false)} />}
     </div>
   );
 }
