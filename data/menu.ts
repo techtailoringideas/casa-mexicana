@@ -53,6 +53,7 @@ export const menuItems: MenuItem[] = [
     price: 1160,
     isVeg: true,
     badge: "FAVORITE",
+    image: "/images/Fiesta-Platter.avif",
   },
   {
     id: "nachos-plain",
@@ -66,6 +67,7 @@ export const menuItems: MenuItem[] = [
       { label: "Meat", price: 1150 },
     ],
     isVeg: false,
+    image: "/images/nachos.avif",
   },
   {
     id: "chilakiles",
@@ -76,6 +78,7 @@ export const menuItems: MenuItem[] = [
     category: "starters",
     price: 585,
     isVeg: true,
+    image: "/images/chilakiles.avif",
   },
   {
     id: "queso",
@@ -86,6 +89,7 @@ export const menuItems: MenuItem[] = [
     category: "starters",
     price: 650,
     isVeg: false,
+    image: "/images/Queso.avif",
   },
   {
     id: "guacamole",
@@ -106,6 +110,7 @@ export const menuItems: MenuItem[] = [
     category: "starters",
     price: 830,
     isVeg: false,
+    image: "/images/Sopes.avif",
   },
   {
     id: "chipotle-papas",
@@ -145,6 +150,7 @@ export const menuItems: MenuItem[] = [
     ],
     isVeg: false,
     badge: "FAVORITE",
+    image: "/images/Tortilla-Soup.avif",
   },
   {
     id: "red-rice",
@@ -171,6 +177,7 @@ export const menuItems: MenuItem[] = [
       { label: "Meat", price: 860 },
     ],
     isVeg: false,
+    image: "/images/Avocado Salad.avif",
   },
 
   // ─── TACOS ───
@@ -291,6 +298,7 @@ export const menuItems: MenuItem[] = [
     category: "special-plates",
     price: 830,
     isVeg: false,
+    image: "/images/Enchiladas.avif",
   },
   {
     id: "salsa-tacos",
@@ -311,6 +319,7 @@ export const menuItems: MenuItem[] = [
     category: "special-plates",
     price: 880,
     isVeg: false,
+    image: "/images/American Quesadilla.avif",
   },
   {
     id: "suprema-plate",
@@ -343,6 +352,7 @@ export const menuItems: MenuItem[] = [
     price: 880,
     isVeg: false,
     badge: "FAVORITE",
+    image: "/images/Al Pastor Tacos.avif",
   },
   {
     id: "shrimp-tacos",
@@ -353,6 +363,7 @@ export const menuItems: MenuItem[] = [
     category: "special-plates",
     price: 950,
     isVeg: false,
+    image: "/images/Shrimp Tacos.avif",
   },
 
   // ─── DRINKS ───
@@ -364,6 +375,7 @@ export const menuItems: MenuItem[] = [
     category: "drinks",
     price: 330,
     isVeg: true,
+    image: "/images/pepino lemon.avif",
   },
   {
     id: "jamaica",
@@ -374,6 +386,7 @@ export const menuItems: MenuItem[] = [
     price: 330,
     isVeg: true,
     badge: "FAVORITE",
+    image: "/images/jamaica.avif",
   },
   {
     id: "tamarindo",
@@ -383,6 +396,7 @@ export const menuItems: MenuItem[] = [
     category: "drinks",
     price: 330,
     isVeg: true,
+    image: "/images/tamarindo.avif",
   },
   {
     id: "mango",
@@ -402,6 +416,7 @@ export const menuItems: MenuItem[] = [
     price: 330,
     isVeg: true,
     badge: "CHEF'S PICK",
+    image: "/images/horchata.avif",
   },
   {
     id: "horchata-coco",
@@ -429,6 +444,7 @@ export const menuItems: MenuItem[] = [
     category: "drinks",
     price: 330,
     isVeg: true,
+    image: "/images/pina-fresa.avif",
   },
   {
     id: "soft-drink",
@@ -476,6 +492,7 @@ export const menuItems: MenuItem[] = [
     price: 200,
     isVeg: true,
     badge: "FAVORITE",
+    image: "/images/Churros.avif",
   },
 ];
 

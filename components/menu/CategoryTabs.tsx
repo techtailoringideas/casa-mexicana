@@ -33,7 +33,7 @@ export default function CategoryTabs({ active, onSelect }: CategoryTabsProps) {
           key={cat.id}
           ref={cat.id === active ? activeRef : null}
           onClick={() => onSelect(cat.id)}
-          className={`snap-start whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex-shrink-0 ${
+          className={`snap-start whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 shrink-0 ${
             cat.id === active
               ? "bg-pink text-white shadow-md shadow-pink/20"
               : "bg-white text-body hover:bg-pink/10 hover:text-pink"

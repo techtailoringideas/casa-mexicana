@@ -28,7 +28,7 @@ export default function MenuSection() {
         </ScrollReveal>
 
         {/* Sticky category tabs */}
-        <div className="sticky top-[60px] z-30 bg-cream/95 backdrop-blur-sm py-3 -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="sticky top-20 z-30 bg-cream/95 backdrop-blur-sm py-3 -mx-4 px-4 sm:mx-0 sm:px-0">
           <CategoryTabs active={activeCategory} onSelect={setActiveCategory} />
         </div>
 
