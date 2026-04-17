@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full h-svh flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-dvh flex items-center justify-center overflow-hidden"
     >
       {/* Background gradient */}
       <div className="absolute inset-0">
