@@ -201,7 +201,7 @@ export const menuItems: MenuItem[] = [
     price: 670,
     isVeg: false,
     badge: "FAVORITE",
-    image: "/images/chickentacos.jpg",
+    image: "/images/Chicken Tacos.avif",
   },
   {
     id: "tacos-rajas",
@@ -309,6 +309,7 @@ export const menuItems: MenuItem[] = [
     category: "special-plates",
     price: 830,
     isVeg: false,
+    image: "/images/Salsa-Tacos.avif",
   },
   {
     id: "american-quesadilla",
@@ -331,6 +332,7 @@ export const menuItems: MenuItem[] = [
     price: 950,
     isVeg: false,
     badge: "CHEF'S PICK",
+    image: "/images/Suprema-Plate.avif",
   },
   {
     id: "carnitas-tacos",
@@ -341,6 +343,7 @@ export const menuItems: MenuItem[] = [
     category: "special-plates",
     price: 880,
     isVeg: false,
+    image: "/images/Carnitas Tacos.avif",
   },
   {
     id: "al-pastor-tacos",
