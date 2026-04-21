@@ -419,7 +419,6 @@ export const menuItems: MenuItem[] = [
     price: 330,
     isVeg: true,
     badge: "CHEF'S PICK",
-    image: "/images/horchata.avif",
   },
   {
     id: "horchata-coco",
@@ -429,6 +428,7 @@ export const menuItems: MenuItem[] = [
     category: "drinks",
     price: 330,
     isVeg: true,
+    image: "/images/horchata.avif",
   },
   {
     id: "lemonade",
