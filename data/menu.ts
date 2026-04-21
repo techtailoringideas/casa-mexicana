@@ -409,6 +409,7 @@ export const menuItems: MenuItem[] = [
     category: "drinks",
     price: 330,
     isVeg: true,
+    image: "/images/mango.avif",
   },
   {
     id: "horchata",
