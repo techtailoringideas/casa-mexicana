@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "*.supabase.co", // wildcard = works for ANY supabase project permanently
+        hostname: "kbyvujoxzfwsydplyxdx.supabase.co",
         port: "",
         pathname: "/storage/v1/object/public/**",
       },

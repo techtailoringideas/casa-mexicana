@@ -1,5 +1,5 @@
 "use client";
-
+import { menuItems, categories } from "@/data/menu";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -125,7 +125,9 @@ export default function AdminDashboard() {
   const [adminName, setAdminName] = useState("");
   const router = useRouter();
 
-  const [view, setView] = useState<"orders" | "gallery" | "reviews">("orders");
+  const [view, setView] = useState<"orders" | "gallery" | "reviews" | "menu">(
+    "orders",
+  );
   const [galleryImages, setGalleryImages] = useState<
     { name: string; url: string }[]
   >([]);
@@ -133,6 +135,13 @@ export default function AdminDashboard() {
   const [uploading, setUploading] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [reviewsLoading, setReviewsLoading] = useState(false);
+
+  const [menuImagesList, setMenuImagesList] = useState<
+    { slug: string; url: string }[]
+  >([]);
+  const [menuImagesLoading, setMenuImagesLoading] = useState(false);
+  const [menuUploading, setMenuUploading] = useState<string | null>(null);
+  const [menuDeleting, setMenuDeleting] = useState<string | null>(null);
 
   const fetchOrders = useCallback(async () => {
     const token = sessionStorage.getItem("admin_token");
@@ -281,6 +290,85 @@ export default function AdminDashboard() {
     });
   };
 
+  const fetchMenuImages = async () => {
+    const token = sessionStorage.getItem("admin_token");
+    if (!token) return;
+    setMenuImagesLoading(true);
+    try {
+      const res = await fetch("/api/admin/menu-images", {
+        headers: { authorization: token },
+      });
+      const data = await res.json();
+      setMenuImagesList(data.images || []);
+    } catch {
+      console.error("Failed to fetch menu images");
+    }
+    setMenuImagesLoading(false);
+  };
+
+  const handleMenuImageUpload = async (
+    slug: string,
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const token = sessionStorage.getItem("admin_token");
+    if (!token || !e.target.files?.length) return;
+
+    const file = e.target.files[0];
+    const allowed = ["image/webp", "image/avif"];
+    if (!allowed.includes(file.type)) {
+      alert("Only .webp and .avif formats are allowed");
+      e.target.value = "";
+      return;
+    }
+
+    setMenuUploading(slug);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("slug", slug);
+
+    try {
+      const res = await fetch("/api/admin/menu-images", {
+        method: "POST",
+        headers: { authorization: token },
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMenuImagesList((prev) => {
+          const exists = prev.find((i) => i.slug === slug);
+          if (exists)
+            return prev.map((i) =>
+              i.slug === slug ? { ...i, url: data.url } : i,
+            );
+          return [...prev, { slug, url: data.url }];
+        });
+      } else {
+        alert(data.error || "Upload failed");
+      }
+    } catch {
+      alert("Upload failed");
+    }
+    setMenuUploading(null);
+    e.target.value = "";
+  };
+
+  const handleMenuImageDelete = async (slug: string) => {
+    const token = sessionStorage.getItem("admin_token");
+    if (!token) return;
+    setMenuDeleting(slug);
+    try {
+      await fetch("/api/admin/menu-images", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json", authorization: token },
+        body: JSON.stringify({ slug }),
+      });
+      setMenuImagesList((prev) => prev.filter((i) => i.slug !== slug));
+    } catch {
+      alert("Delete failed");
+    }
+    setMenuDeleting(null);
+  };
+
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const token = sessionStorage.getItem("admin_token");
     if (!token || !e.target.files?.length) return;
@@ -405,6 +493,25 @@ export default function AdminDashboard() {
                     </span>
                   )}
                 </span>
+              </button>
+              {/* Edit Menu Toggle */}
+              <button
+                onClick={() => {
+                  if (view === "menu") {
+                    setView("orders");
+                  } else {
+                    setView("menu");
+                    fetchMenuImages();
+                  }
+                }}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  view === "menu"
+                    ? "bg-yellow text-earth-dark shadow-lg"
+                    : "text-white/70 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                <ImagePlus size={18} />
+                <span className="hidden md:inline">Edit Menu</span>
               </button>
               {/* Gallery Toggle */}
 
@@ -625,6 +732,137 @@ export default function AdminDashboard() {
                               </div>
                             </div>
                           ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        ) : view === "menu" ? (
+          <div className="bg-white rounded-3xl shadow-lg overflow-hidden border border-earth-dark/5">
+            {/* Header */}
+            <div className="bg-earth-dark/5 px-6 sm:px-8 py-5 border-b border-earth-dark/10">
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setView("orders")}
+                  className="w-10 h-10 rounded-full bg-white border border-earth-dark/10 flex items-center justify-center text-earth-dark hover:bg-earth-dark hover:text-white transition-all duration-300"
+                >
+                  <ArrowLeft size={18} />
+                </button>
+                <div>
+                  <h2 className="font-playfair text-2xl font-bold text-earth-dark">
+                    Edit Menu Images
+                  </h2>
+                  <p className="text-sm text-muted">
+                    Only .webp and .avif formats accepted
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="px-6 sm:px-8 py-8">
+              {menuImagesLoading ? (
+                <div className="text-center py-20 text-muted">
+                  <RefreshCw className="w-8 h-8 animate-spin mx-auto text-teal mb-4" />
+                  Loading menu...
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {categories.map((cat) => {
+                    const catItems = menuItems.filter(
+                      (i) => i.category === cat.id,
+                    );
+                    return (
+                      <div key={cat.id}>
+                        <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">
+                          {cat.label}
+                        </p>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                          {catItems.map((item) => {
+                            const supabaseImage = menuImagesList.find(
+                              (i) => i.slug === item.slug,
+                            );
+                            const isUploading = menuUploading === item.slug;
+                            const isDeleting = menuDeleting === item.slug;
+
+                            return (
+                              <div
+                                key={item.slug}
+                                className="rounded-2xl border border-earth-dark/10 overflow-hidden bg-earth-dark/2"
+                              >
+                                {/* Image preview */}
+                                <div className="relative aspect-square bg-cream">
+                                  {supabaseImage ? (
+                                    <Image
+                                      src={supabaseImage.url}
+                                      alt={item.name}
+                                      fill
+                                      className="object-cover"
+                                    />
+                                  ) : (
+                                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#fdf3e7] to-[#f5dfc0]">
+                                      <span className="font-caveat text-2xl text-earth-dark/30">
+                                        No image
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* Item info + actions */}
+                                <div className="p-3">
+                                  <p className="text-sm font-semibold text-earth-dark truncate mb-2">
+                                    {item.name}
+                                  </p>
+                                  <div className="flex flex-col gap-1.5">
+                                    <label
+                                      className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-colors ${
+                                        isUploading
+                                          ? "bg-teal/20 text-teal"
+                                          : "bg-teal text-white hover:opacity-90"
+                                      }`}
+                                    >
+                                      <ImagePlus
+                                        size={13}
+                                        className={
+                                          isUploading ? "animate-spin" : ""
+                                        }
+                                      />
+                                      {isUploading
+                                        ? "Uploading..."
+                                        : supabaseImage
+                                          ? "Change"
+                                          : "Upload"}
+                                      <input
+                                        type="file"
+                                        accept=".webp,.avif"
+                                        className="hidden"
+                                        disabled={isUploading}
+                                        onChange={(e) =>
+                                          handleMenuImageUpload(item.slug, e)
+                                        }
+                                      />
+                                    </label>
+
+                                    {supabaseImage && (
+                                      <button
+                                        onClick={() =>
+                                          handleMenuImageDelete(item.slug)
+                                        }
+                                        disabled={isDeleting}
+                                        className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-colors"
+                                      >
+                                        <Trash2 size={13} />
+                                        {isDeleting ? "Removing..." : "Remove"}
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     );

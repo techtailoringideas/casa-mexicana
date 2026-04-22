@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 // Small decorative bubbles — more quantity, bigger sizes
 const bubbles = [
-  { size: 60, top: "18%", left: "72%", delay: 1.8, duration: 5 },
-  { size: 68, top: "18%", right: "62%", delay: 1.5, duration: 5 },
+  { size: 60, top: "48%", left: "72%", delay: 1.8, duration: 5 },
+  { size: 68, top: "38%", right: "62%", delay: 1.5, duration: 5 },
 ];
 
 export default function Hero() {
@@ -16,8 +16,13 @@ export default function Hero() {
     >
       {/* Background gradient */}
       <div className="absolute inset-0">
-        <div className="w-full h-full bg-linear-to-b from-[#0A3A38] to-[#121212]" />
-        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-black/40" />
+        <div
+          className="w-full h-full"
+          style={{
+            background:
+              "linear-gradient(135deg, #0D5C58 0%, #062E2C 50%, #0D5C58 100%)",
+          }}
+        />
       </div>
 
       {/* ===== FLOATING FOOD IMAGES — LEFT SIDE (3) ===== */}
@@ -147,7 +152,7 @@ export default function Hero() {
       {/* ===== RESPONSIVE IMAGES (MOBILE & DESKTOP TOP ARCH) ===== */}
       {/* Image A: Mobile Left -> Desktop Top-Left */}
       <motion.div
-        className="absolute z-5 rounded-2xl overflow-hidden shadow-2xl shadow-black/30 w-17.5 h-17.5 top-[30%] left-[10%] md:w-27.5 md:h-27.5 md:top-[18%] md:left-[30%]"
+        className="absolute z-5 rounded-2xl overflow-hidden shadow-2xl shadow-black/30 w-17.5 h-17.5 top-[30%] left-[6%] md:w-27.5 md:h-27.5 md:top-[18%] md:left-[30%]"
         animate={{ opacity: [0.6, 0.85, 0.6], y: [0, -12, 0] }}
         transition={{
           duration: 7,
@@ -168,7 +173,7 @@ export default function Hero() {
 
       {/* Image B: Mobile Center -> Desktop Top-Center */}
       <motion.div
-        className="absolute z-5 rounded-2xl overflow-hidden shadow-2xl shadow-black/30 w-15 h-15 top-[15%] left-[42%] md:w-25 md:h-25 md:top-[15%] md:left-[46%]"
+        className="absolute z-5 rounded-2xl overflow-hidden shadow-2xl shadow-black/30 hidden lg:block lg:w-25 lg:h-25 lg:top-[8%] lg:left-[46%]"
         animate={{ opacity: [0.6, 0.85, 0.6], y: [0, -12, 0] }}
         transition={{
           duration: 6,
@@ -189,7 +194,7 @@ export default function Hero() {
 
       {/* Image C: Mobile Right -> Desktop Top-Right */}
       <motion.div
-        className="absolute z-5 rounded-2xl overflow-hidden shadow-2xl shadow-black/30 w-17.5 h-17.5 top-[30%] left-[70%] md:w-27.5 md:h-27.5 md:top-[18%] md:left-auto md:right-[30%]"
+        className="absolute z-5 rounded-2xl overflow-hidden shadow-2xl shadow-black/30 w-17.5 h-17.5 top-[30%] left-[78%] md:w-27.5 md:h-27.5 md:top-[18%] md:left-auto md:right-[30%]"
         animate={{ opacity: [0.6, 0.85, 0.6], y: [0, -12, 0] }}
         transition={{
           duration: 5.5,
@@ -241,7 +246,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-6"
+          className="mb-6 mt-16"
         >
           <Image
             src="/images/logo.avif"
@@ -275,6 +280,18 @@ export default function Hero() {
         >
           This is how México feels
         </motion.p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="flex items-center gap-3 justify-center mb-10"
+        >
+          <div className="h-px w-10 bg-white/20" />
+          <p className="text-yellow text-xs uppercase tracking-[0.25em] font-medium">
+            Est. Since 2017
+          </p>
+          <div className="h-px w-10 bg-white/20" />
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

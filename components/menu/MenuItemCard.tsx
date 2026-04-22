@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X } from "lucide-react";
-import Image from "next/image";
 import type { MenuItem } from "@/data/menu";
 import VegBadge from "@/components/ui/VegBadge";
 import TagBadge from "@/components/ui/TagBadge";
@@ -11,9 +10,13 @@ import { useCart } from "@/store/useCart";
 
 interface MenuItemCardProps {
   item: MenuItem;
+  overrideImage?: string;
 }
 
-export default function MenuItemCard({ item }: MenuItemCardProps) {
+export default function MenuItemCard({
+  item,
+  overrideImage,
+}: MenuItemCardProps) {
   const addItem = useCart((s) => s.addItem);
   const openCart = useCart((s) => s.openCart);
   const [expanded, setExpanded] = useState(false);
@@ -29,9 +32,16 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
   };
 
   const displayPrice = item.price ?? item.variants?.[0]?.price ?? 0;
+  const imageToShow = overrideImage;
 
   return (
     <>
+      <style>{`
+      @keyframes fadeIn {
+        from { opacity: 0; filter: blur(8px); }
+        to { opacity: 1; filter: blur(0px); }
+      }
+    `}</style>
       {/* ── CARD ── */}
       <motion.div
         whileHover={{ y: -6 }}
@@ -51,13 +61,12 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
           className="relative w-full shrink-0 overflow-hidden"
           style={{ aspectRatio: "3/4" }}
         >
-          {item.image ? (
-            <Image
-              src={item.image}
+          {imageToShow ? (
+            <img
+              src={imageToShow}
               alt={item.name}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              style={{ animation: "fadeIn 0.5s ease-in-out" }}
             />
           ) : (
             <div
@@ -307,7 +316,7 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
               style={{ background: "rgba(15,7,2,0.7)" }}
             />
 
-            {/* ── MOBILE MODAL: Centered popup so it pops out but doesn't cover whole screen ── */}
+            {/* ── MOBILE MODAL ── */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: "-50%", x: "-50%" }}
               animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
@@ -324,7 +333,6 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
                 boxShadow: "0 24px 80px rgba(15,7,2,0.35)",
               }}
             >
-              {/* mobile close */}
               <button
                 onClick={() => setExpanded(false)}
                 style={{
@@ -348,7 +356,6 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
                 <X size={14} />
               </button>
 
-              {/* image */}
               <div
                 style={{
                   position: "relative",
@@ -358,12 +365,11 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
                   overflow: "hidden",
                 }}
               >
-                {item.image ? (
-                  <Image
-                    src={item.image}
+                {imageToShow ? (
+                  <img
+                    src={imageToShow}
                     alt={item.name}
-                    fill
-                    className="object-cover"
+                    className="w-full h-full object-cover"
                     style={{ objectPosition: "center 30%" }}
                   />
                 ) : (
@@ -395,7 +401,6 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
                 />
               </div>
 
-              {/* scrollable content */}
               <div
                 style={{
                   overflowY: "auto",
@@ -443,7 +448,6 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
                 >
                   {item.description}
                 </p>
-
                 <div
                   style={{
                     height: "1px",
@@ -464,7 +468,6 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
                 >
                   {item.variants ? "Choose your size" : "Add to your order"}
                 </p>
-
                 <div
                   style={{
                     display: "flex",
@@ -585,7 +588,7 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
               </div>
             </motion.div>
 
-            {/* ── DESKTOP MODAL: Fixed dimensions to prevent layout breaking ── */}
+            {/* ── DESKTOP MODAL ── */}
             <motion.div
               initial={{ opacity: 0, scale: 0.97, x: "-50%", y: "-50%" }}
               animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
@@ -604,7 +607,6 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
                 boxShadow: "0 24px 80px rgba(15,7,2,0.35)",
               }}
             >
-              {/* close */}
               <button
                 onClick={() => setExpanded(false)}
                 style={{
@@ -639,12 +641,11 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
 
               {/* desktop image */}
               <div className="w-1/2 h-full shrink-0 relative overflow-hidden">
-                {item.image ? (
-                  <Image
-                    src={item.image}
+                {imageToShow ? (
+                  <img
+                    src={imageToShow}
                     alt={item.name}
-                    fill
-                    className="object-cover w-full h-full"
+                    className="w-full h-full object-cover"
                   />
                 ) : (
                   <div
@@ -712,7 +713,6 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
                     {item.description}
                   </p>
                 </div>
-
                 <div>
                   <div
                     style={{
